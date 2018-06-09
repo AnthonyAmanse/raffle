@@ -2,8 +2,8 @@
 	font-family: "Verdana";
 	display:inline-block;
 	font-size: 30px;
-	
-	background-color: #CCC;
+
+	background-color: #C5004F;
 	color: white;
 	padding: 10px;
 	margin:5px;
@@ -12,11 +12,36 @@
 	border-radius: 16px;
 	transition: background .5s;
 	-webkit-transition: background .5s;
-	
+
 	cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select:none;
     -khtml-user-select:none;
+}
+
+.ticketWinner {
+	display: flex;
+	flex-direction: column-reverse;
+	align-items: center;
+	font-family: 'Verdana';
+	color: #FFF;
+	padding-top: 5vh;
+	padding-bottom: 5vh;
+	padding-left: 2vw;
+	padding-right: 2vw;
+	border-radius: 24px;
+}
+
+.avatarContainer {
+	font-size: 2em;
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+	margin-left: 2vw;
+	margin-right: 2vw;
+}
+
+.avatarImage {
+	border-radius: 50%;
 }
 
 /*.ticket:hover {
@@ -29,7 +54,7 @@
 	margin: 50px auto;
 
 	-webkit-border-radius: 16px;
-	border-radius: 16px; 
+	border-radius: 16px;
 	-moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 
 	-webkit-box-shadow: 0px 0px 6px 0px #000;
@@ -57,7 +82,7 @@ textarea {
 	margin: 0 auto;
 	background: #9fd4d4;
 	-webkit-border-radius: 16px;
-	border-radius: 16px; 
+	border-radius: 16px;
 	-moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 	cursor: pointer;
 
