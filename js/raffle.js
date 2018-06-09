@@ -43,17 +43,20 @@ function process(){
 	});
 }
 
-$(document).ready(function(){
-	if(imported && imported.length > 0) {
-		$('.enter-names').hide();
+function raffleWrapped() {
+	$(document).ready(function(){
+		if(imported && imported.length > 0) {
+			$('.enter-names').hide();
 
-		makeTicketsWithPoints();
-	}
+			makeTicketsWithPoints();
+		}
 
-	$('.name-text-field').on('input', function() {
-		$('#participant-number').text(getNames().length || '');
+		$('.name-text-field').on('input', function() {
+			$('#participant-number').text(getNames().length || '');
+		});
 	});
-});
+}
+
 var ticketNames;
 var ticketPoints;
 
@@ -90,7 +93,7 @@ function Ticket(name, points){
 			'position':'absolute',
 			'top': me.dom.offset().top,
 			'left':me.dom.offset().left,
-			'background': colors.length > me.points ? colors[me.points] : "rgb(" + Math.floor(Math.random()*256) + "," + Math.floor(Math.random()*256) + "," + Math.floor(Math.random()*256) + ")" 
+			'background': "rgb(228, 53, 103)"
 		});
 	};
 	this.decrement = function(length, callback){
@@ -176,7 +179,7 @@ var pickName = function(){
 	inProgress = true;
 	$('.ticket').unbind('click');
 	$('body').unbind('click');
-	
+
 	var choices = getChoices();
 	if(choices.length > 1){
 		var remove = Math.floor(Math.random()*choices.length);
@@ -190,16 +193,44 @@ var pickName = function(){
 		var left = choices.css('left');
 		var fontsize = choices.css('font-size');
 		var width = choices.width();
-		choices.click(function(){
-			inProgress = false;
-			choices.animate({'font-size':fontsize,'top':top,'left':left},'slow');
-			$('.ticket').show(500).unbind('click');
-			setTimeout(function(){
-				makeTicketsWithPoints(ticketNames, ticketPoints);
-			}, 700);
-		});
-		choices.animate({'font-size':3*size +'px','top':(window.innerHeight/5) + 'px','left':(window.innerWidth/2 - width) + 'px'},1500, function(){
+
+		// Commenting this to prevent reset.
+		// choices.click(function(){
+		// 	inProgress = false;
+		// 	choices.animate({'font-size':fontsize,'top':top,'left':left},'slow');
+		// 	$('.ticket').show(500).unbind('click');
+		// 	setTimeout(function(){
+		// 		makeTicketsWithPoints(ticketNames, ticketPoints);
+		// 	}, 700);
+		// });
+		choices[0].className = "ticketWinner";
+		console.log(choices[0]);
+		showWinnerAvatar(choices[0].innerHTML, choices[0]);
+		choices.animate({'background-color': 'rgb(166, 0, 56)','font-size':'1em','top':(window.innerHeight/5) + 'px','left':(window.innerWidth/2 - width) + 'px'},1500, function(){
 			choices.animate({'left':(window.innerWidth/2 - choices.width()/2) + 'px'}, 'slow');
 		});
 	}
+}
+
+function showWinnerAvatar(userId, dom) {
+	let xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+      var data = JSON.parse(this.responseText);
+
+			// Create div for avatar
+			var avatarContainer = document.createElement('div');
+			avatarContainer.className = "avatarContainer";
+			avatarContainer.innerHTML = data.name;
+			dom.appendChild(avatarContainer);
+
+			// Create image
+			var avatarImage = new Image();
+			avatarImage.src = "data:image/png;base64," + data.png;
+			avatarImage.className = "avatarImage";
+			dom.appendChild(avatarImage);
+    }
+  };
+  xmlhttp.open("GET", BACKEND_URL + "/registerees/info/" + userId, true);
+  xmlhttp.send();
 }
