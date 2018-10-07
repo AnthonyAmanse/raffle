@@ -15,7 +15,7 @@ var colors = ["rgb(255, 85, 128)","rgb(255, 115, 154)","rgb(255, 144, 180)","rgb
  */
 // var imported = false;
 
-let BACKEND_URL = "https://anthony-blockchain.us-south.containers.mybluemix.net";
+let BACKEND_URL = "https://cloudcoin.us-south.containers.appdomain.cloud";
 
 // var imported = [
 // {
@@ -48,7 +48,7 @@ function getReigsteredUsers() {
       var newFormat = data.map(oldData => {
         var newData = {};
         newData.name = oldData.registereeId;
-        newData.avatarName = oldData.name;
+        // newData.avatarName = oldData.name;
         return newData;
       });
       console.log(newFormat);
@@ -56,7 +56,7 @@ function getReigsteredUsers() {
       raffleWrapped();
     }
   };
-  xmlhttp.open("GET", BACKEND_URL + "/leaderboard/all", true);
+  xmlhttp.open("GET", BACKEND_URL + "/leaderboard/cfsummit/all", true);
   xmlhttp.send();
 }
 

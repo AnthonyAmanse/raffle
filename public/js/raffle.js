@@ -231,6 +231,6 @@ function showWinnerAvatar(userId, dom) {
 			dom.appendChild(avatarImage);
     }
   };
-  xmlhttp.open("GET", BACKEND_URL + "/registerees/info/" + userId, true);
+  xmlhttp.open("GET", BACKEND_URL + "/registerees/cfsummit/info/" + userId, true);
   xmlhttp.send();
 }
